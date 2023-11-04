@@ -19,6 +19,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     @ResponseBody
     public Result error(Exception e) {
+        e.printStackTrace();
         return Result.build(ResultCodeEnum.SYSTEM_ERROR);
     }
 
@@ -26,6 +27,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     @ResponseBody
     public Result error(ServiceResException e) {
+        e.printStackTrace();
         return Result.build(e.getResultCodeEnum());
     }
 }
