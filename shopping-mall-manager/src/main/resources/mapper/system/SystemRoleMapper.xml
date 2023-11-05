@@ -23,7 +23,7 @@
         <include refid="columns"/>
         from sys_role
         <include refid="findPageWhere"/>
-        order by create_time
+        order by id desc
     </select>
 
 
@@ -39,7 +39,7 @@
         <set>
             <if test="roleName != null and roleName != ''">role_name=#{roleName},</if>
             <if test="roleCode != null and roleCode != ''">role_code=#{roleCode},</if>
-            <if test="description != null and description != ''">role_name=#{description},</if>
+            <if test="description != null and description != ''">description=#{description},</if>
         </set>
         where id=#{id}
     </update>
@@ -49,5 +49,14 @@
         set is_deleted=1
         where id = #{roleId}
     </delete>
+
+
+    <select id="findAllRoles" resultMap="sysRoleMap">
+        select
+        <include refid="columns"/>
+        from sys_role
+        where is_deleted = 0
+        order by id desc
+    </select>
 
 </mapper>

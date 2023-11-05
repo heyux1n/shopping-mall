@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.heyux1n.shopping.mall.manager.service.SysRoleService;
 import com.heyux1n.shopping.mall.model.dto.system.SysRoleDto;
 import com.heyux1n.shopping.mall.model.entity.system.SysRole;
+import com.heyux1n.shopping.mall.model.vo.common.ListCheckResult;
 import com.heyux1n.shopping.mall.model.vo.common.Result;
 import com.heyux1n.shopping.mall.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService ;
 
-    @PostMapping("/findByPage/{pageNum}/{pageSize}")
-    public Result<PageInfo<SysRole>> findByPage(@RequestBody SysRoleDto sysRoleDto ,
+    @GetMapping("/findByPage/{pageNum}/{pageSize}")
+    public Result<PageInfo<SysRole>> findByPage(SysRoleDto sysRoleDto ,
                                                 @PathVariable(value = "pageNum") Integer pageNum ,
                                                 @PathVariable(value = "pageSize") Integer pageSize) {
         PageInfo<SysRole> pageInfo = sysRoleService.findByPage(sysRoleDto , pageNum , pageSize);
@@ -48,6 +49,12 @@ public class SysRoleController {
     public Result deleteById(@PathVariable(value = "roleId") Long roleId) {
         boolean b = sysRoleService.deleteById(roleId);
         return Result.build(b , ResultCodeEnum.SUCCESS);
+    }
+
+    @GetMapping(value = "/findAllRoles/{userId}")
+    public Result findAllRoles(@PathVariable(value = "userId") Long userId) {
+        ListCheckResult<SysRole> listCheckResult = sysRoleService.findAllRoles(userId);
+        return Result.build(listCheckResult , ResultCodeEnum.SUCCESS)  ;
     }
 
 }

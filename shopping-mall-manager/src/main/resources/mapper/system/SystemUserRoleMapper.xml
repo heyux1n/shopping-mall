@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heyux1n.shopping.mall.manager.mapper.SysUserRoleMapper">
+
+    <select id="findRoleIdsByUserId" resultType="long">
+        select sys_role.id
+        from sys_role
+                 inner join sys_user_role
+                            on sys_role.id = sys_user_role.role_id
+        where sys_user_role.user_id = #{userId}
+        order by sys_role.id desc
+    </select>
+
+    <delete id="deleteByUserId">
+        delete
+        from sys_user_role
+        where user_id = #{userId};
+    </delete>
+
+    <insert id="doAssign">
+        insert into sys_user_role (role_id, user_id)
+        values (#{roleId},
+                #{userId});
+    </insert>
+</mapper>

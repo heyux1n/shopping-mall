@@ -21,4 +21,7 @@ public interface SysRoleMapper {
     public abstract boolean updateSysRole(SysRole sysRole);
 
     public abstract boolean deleteById(Long roleId);
+
+    public abstract List<SysRole> findAllRoles();
+
 }

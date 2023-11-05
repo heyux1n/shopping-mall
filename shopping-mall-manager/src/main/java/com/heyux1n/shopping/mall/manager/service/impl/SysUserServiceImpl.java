@@ -4,12 +4,17 @@ import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.util.StringUtil;
 import com.heyux1n.shopping.mall.common.exception.ServiceResException;
 import com.heyux1n.shopping.mall.common.util.AuthContextUtil;
 import com.heyux1n.shopping.mall.manager.mapper.SysUserMapper;
+import com.heyux1n.shopping.mall.manager.mapper.SysUserRoleMapper;
+import com.heyux1n.shopping.mall.model.dto.system.AssignRoleDto;
 import com.heyux1n.shopping.mall.model.dto.system.LoginDto;
 import com.heyux1n.shopping.mall.manager.service.SysUserService;
+import com.heyux1n.shopping.mall.model.dto.system.SysUserDto;
 import com.heyux1n.shopping.mall.model.entity.system.SysUser;
 import com.heyux1n.shopping.mall.model.vo.system.LoginVo;
 import com.heyux1n.shopping.mall.model.vo.common.ResultCodeEnum;
@@ -17,7 +22,9 @@ import com.heyux1n.shopping.mall.model.vo.system.CaptchaVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +34,8 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
+    @Autowired
+    private SysUserRoleMapper sysUserRoleMapper;
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
@@ -53,7 +62,7 @@ public class SysUserServiceImpl implements SysUserService {
         //"user:login:captcha:" + key
         String captchaKey = "user:login:captcha:" + loginDto.getCodeKey();
         String captcha = redisTemplate.opsForValue().get(captchaKey);
-        if(StringUtil.isEmpty(captcha) || !captcha.equalsIgnoreCase(loginDto.getCaptcha())) {
+        if (StringUtil.isEmpty(captcha) || !captcha.equalsIgnoreCase(loginDto.getCaptcha())) {
             throw new ServiceResException(ResultCodeEnum.CAPTCHA_ERROR);
         }
         //删除验证码
@@ -63,7 +72,7 @@ public class SysUserServiceImpl implements SysUserService {
         SysUser sysUser = sysUserMapper.selectByUserName(loginDto.getUserName());
 
         //2.不存在抛出用户不存在异常
-        if(sysUser == null) {
+        if (sysUser == null) {
             throw new ServiceResException(ResultCodeEnum.USER_UNREGISTERED);
         }
 
@@ -71,7 +80,7 @@ public class SysUserServiceImpl implements SysUserService {
         String digestPassword = DigestUtil.md5Hex(loginDto.getPassword());
 
         //4.密码不一致则抛出密码错误的异常
-        if(!digestPassword.equals(sysUser.getPassword())) {
+        if (!digestPassword.equals(sysUser.getPassword())) {
             throw new ServiceResException(ResultCodeEnum.LOGIN_ERROR);
         }
 
@@ -79,7 +88,7 @@ public class SysUserServiceImpl implements SysUserService {
         String token = UUID.randomUUID().toString().replaceAll("-", "");
         redisTemplate.opsForValue().set("user:login:" + token, JSON.toJSONString(sysUser), 10, TimeUnit.MINUTES);
 
-        LoginVo loginVo = new LoginVo() ;
+        LoginVo loginVo = new LoginVo();
         loginVo.setToken(token);
         return loginVo;
     }
@@ -92,6 +101,38 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void logout(String token) {
         redisTemplate.delete("user:login:" + token);
+    }
+
+    @Override
+    public PageInfo<SysUser> findByPage(SysUserDto sysUserDto, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<SysUser> sysUserList = sysUserMapper.findByPage(sysUserDto);
+        return new PageInfo<>(sysUserList);
+    }
+
+    @Override
+    public boolean saveSysUser(SysUser sysUser) {
+        return sysUserMapper.saveSysUser(sysUser);
+    }
+
+    @Override
+    public boolean updateSysUser(SysUser sysUser) {
+        return sysUserMapper.updateSysUser(sysUser);
+    }
+
+    @Override
+    public boolean deleteById(Long userId) {
+        return sysUserMapper.deleteById(userId);
+    }
+
+    @Override
+    @Transactional
+    public boolean doAssign(AssignRoleDto assignRoleDto) {
+        sysUserRoleMapper.deleteByUserId(assignRoleDto.getUserId());
+        assignRoleDto.getRoleIdList().forEach(roleId -> {
+            sysUserRoleMapper.doAssign(assignRoleDto.getUserId(), roleId);
+        });
+        return true;
     }
 
 
