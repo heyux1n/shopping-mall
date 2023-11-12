@@ -7,17 +7,15 @@ import java.util.List;
 
 /**
  * @author: heyux1n
- * @date: 2023/11/5 16:21
- * @description:
+ * @date: 2023/11/9 21:51
+ * @description: 分配菜单参数
  * @version: 1.0.0
  */
-@Schema(description = "分配角色")
+@Schema(description = "分配菜单参数")
 @Data
-public class AssignRoleDto {
-
-    @Schema(description = "用户的id")
-    private Long userId;
+public class AssignMenuDto {
     @Schema(description = "角色id")
-    private List<Long> roleIdList;
-
+    private Long roleId;
+    @Schema(description = "分配的菜单")
+    private List<Long> menuIdList;
 }

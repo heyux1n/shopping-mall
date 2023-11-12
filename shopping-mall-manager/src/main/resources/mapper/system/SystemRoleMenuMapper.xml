@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heyux1n.shopping.mall.manager.mapper.SysRoleMenuMapper">
+
+    <select id="findSysRoleMenuByRoleId" resultType="long">
+        select sys_role_menu.menu_id
+        from sys_menu
+                 inner join sys_role_menu
+                            on sys_menu.id = sys_role_menu.menu_id
+        where sys_role_menu.role_id = #{roleId}
+        order by sys_menu.id desc
+    </select>
+
+
+    <delete id="deleteByRoleId">
+        delete
+        from sys_role_menu
+        where role_id = #{roleId};
+    </delete>
+
+
+    <insert id="doAssign">
+        insert into sys_role_menu (role_id, menu_id)
+        values
+        <foreach collection="menuIdList" item="menuId" separator=",">
+            (#{roleId},#{menuId})
+        </foreach>
+    </insert>
+</mapper>
