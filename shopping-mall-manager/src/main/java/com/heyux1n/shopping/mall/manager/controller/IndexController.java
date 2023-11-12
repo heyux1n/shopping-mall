@@ -1,5 +1,6 @@
 package com.heyux1n.shopping.mall.manager.controller;
 
+import com.heyux1n.shopping.mall.manager.service.SysMenuService;
 import com.heyux1n.shopping.mall.model.entity.system.SysUser;
 import com.heyux1n.shopping.mall.model.vo.common.Result;
 import com.heyux1n.shopping.mall.model.vo.common.ResultCodeEnum;
@@ -7,11 +8,14 @@ import com.heyux1n.shopping.mall.model.dto.system.LoginDto;
 import com.heyux1n.shopping.mall.manager.service.SysUserService;
 import com.heyux1n.shopping.mall.model.vo.system.CaptchaVo;
 import com.heyux1n.shopping.mall.model.vo.system.LoginVo;
+import com.heyux1n.shopping.mall.model.vo.system.SysMenuVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "用户接口")
 @RestController
@@ -19,7 +23,9 @@ import org.springframework.web.bind.annotation.*;
 public class IndexController {
 
     @Autowired
-    private SysUserService sysUserService ;
+    private SysUserService sysUserService;
+    @Autowired
+    private SysMenuService sysMenuService;
 
     @Operation(summary = "获取验证码")
     @GetMapping(value = "/generateCaptcha")
@@ -47,5 +53,12 @@ public class IndexController {
     public Result logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String token) {
         sysUserService.logout(token);
         return Result.build(ResultCodeEnum.SUCCESS) ;
+    }
+
+
+    @GetMapping("/menus")
+    public Result menus() {
+        List<SysMenuVo> sysMenuVoList =  sysMenuService.findUserMenuList() ;
+        return Result.build(sysMenuVoList , ResultCodeEnum.SUCCESS) ;
     }
 }

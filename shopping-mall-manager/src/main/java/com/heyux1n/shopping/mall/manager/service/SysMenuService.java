@@ -1,6 +1,7 @@
 package com.heyux1n.shopping.mall.manager.service;
 
 import com.heyux1n.shopping.mall.model.entity.system.SysMenu;
+import com.heyux1n.shopping.mall.model.vo.system.SysMenuVo;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface SysMenuService {
     boolean updateById(SysMenu sysMenu);
 
     boolean removeById(Long id);
+
+    List<SysMenuVo> findUserMenuList();
 }

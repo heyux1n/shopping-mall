@@ -21,4 +21,6 @@ public interface SysMenuMapper {
 
 
     public abstract boolean deleteById(Long id);
+
+    List<SysMenu> selectListByUserId(Long userId);
 }

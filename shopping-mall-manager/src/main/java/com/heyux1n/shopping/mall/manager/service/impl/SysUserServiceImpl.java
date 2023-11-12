@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
 
 import java.util.List;
 import java.util.UUID;
@@ -112,6 +113,17 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public boolean saveSysUser(SysUser sysUser) {
+        //用户名唯一性校验
+        SysUser dbSysUser = sysUserMapper.selectByUserName(sysUser.getUserName()) ;
+        if(dbSysUser != null) {
+            throw new ServiceResException(ResultCodeEnum.USER_NAME_IS_EXISTS) ;
+        }
+
+        //密码加密
+        String md5DigestAsHexPassword = DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes());
+        sysUser.setPassword(md5DigestAsHexPassword);
+        sysUser.setStatus(0);
+
         return sysUserMapper.saveSysUser(sysUser);
     }
 
@@ -126,7 +138,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean doAssign(AssignRoleDto assignRoleDto) {
         sysUserRoleMapper.deleteByUserId(assignRoleDto.getUserId());
         assignRoleDto.getRoleIdList().forEach(roleId -> {

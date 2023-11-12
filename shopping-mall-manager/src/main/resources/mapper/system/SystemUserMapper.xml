@@ -81,4 +81,5 @@
         set is_deleted = 1
         where id = #{id};
     </delete>
+
 </mapper>
