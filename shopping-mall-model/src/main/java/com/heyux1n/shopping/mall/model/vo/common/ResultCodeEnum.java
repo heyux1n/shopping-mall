@@ -2,9 +2,18 @@ package com.heyux1n.shopping.mall.model.vo.common;
 
 import lombok.Getter;
 
+/**
+ * @author: heyux1n
+ * @date: 2023/11/5 14:41
+ * @description:
+ * @version: 1.0.0
+ */
 @Getter
 public enum ResultCodeEnum {
 
+    /**
+     * 操作成功
+     */
     SUCCESS(200 , "操作成功") ,
     USER_UNREGISTERED(201 , "用户未注册") ,
     CAPTCHA_ERROR(202 , "验证码错误") ,
@@ -19,10 +28,20 @@ public enum ResultCodeEnum {
     LOGIN_AUTH(401 , "用户未登录"),
     SYSTEM_ERROR(9999 , "您的网络有问题请稍后重试"),
 
+
+    CATEGORY_IMPORT_ERROR(111, "分类导入失败"),
+    CATEGORY_EXPORT_ERROR(112, "分类导出失败"),
     ;
 
-    private Integer code ;      // 业务状态码
-    private String message ;    // 响应消息
+
+    /**
+     * 业务状态码
+     */
+    private Integer code;
+    /**
+     * 响应消息
+     */
+    private String message;
 
     private ResultCodeEnum(Integer code , String message) {
         this.code = code ;
