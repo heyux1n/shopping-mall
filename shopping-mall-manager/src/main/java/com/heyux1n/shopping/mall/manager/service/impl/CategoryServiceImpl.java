@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -78,4 +79,19 @@ public class CategoryServiceImpl implements CategoryService {
             throw new ServiceResException(ResultCodeEnum.CATEGORY_EXPORT_ERROR);
         }
     }
+
+    @Override
+    public List<Long> getPathById(Long id) {
+        List<Long> paths = new ArrayList<>();
+        paths.add(id);
+        Category category = categoryMapper.findById(id);
+        while (null != category && category.getId() != 0){
+            category = categoryMapper.findById(category.getParentId());
+            if(null != category) {
+                paths.add(category.getId());
+            }
+        }
+        return paths;
+    }
+
 }

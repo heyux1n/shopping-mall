@@ -3,6 +3,8 @@ package com.heyux1n.shopping.mall.manager.service;
 import com.github.pagehelper.PageInfo;
 import com.heyux1n.shopping.mall.model.entity.product.Brand;
 
+import java.util.List;
+
 /**
  * @author: heyux1n
  * @date: 2023/11/25 15:25
@@ -38,4 +40,6 @@ public interface BrandService {
      * @return
      */
     boolean deleteById(Long id);
+
+    List<Brand> findAll();
 }

@@ -26,7 +26,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public PageInfo<Brand> findByPage(Integer page, Integer limit) {
         PageHelper.startPage(page, limit);
-        List<Brand> brandList = brandMapper.findByPage();
+        List<Brand> brandList = brandMapper.selectAll();
         return new PageInfo<>(brandList);
     }
 
@@ -43,5 +43,10 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public boolean deleteById(Long id) {
         return brandMapper.deleteById(id);
+    }
+
+    @Override
+    public List<Brand> findAll() {
+        return brandMapper.selectAll();
     }
 }

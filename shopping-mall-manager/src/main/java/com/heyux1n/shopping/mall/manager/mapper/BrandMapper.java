@@ -17,7 +17,7 @@ public interface BrandMapper {
      * 查询全部
      * @return
      */
-     List<Brand> findByPage();
+     List<Brand> selectAll();
 
     /**
      * 系只能

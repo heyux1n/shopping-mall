@@ -18,4 +18,6 @@ public interface CategoryService {
     void exportData(HttpServletResponse response);
 
     void importData(MultipartFile file);
+
+    List<Long> getPathById(Long id);
 }

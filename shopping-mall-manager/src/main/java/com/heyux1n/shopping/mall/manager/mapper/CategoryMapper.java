@@ -41,4 +41,12 @@ public interface CategoryMapper {
      * @param categoryList
      */
     void batchInsert(List<CategoryExcelVo> categoryList);
+
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    Category findById(Long id);
 }

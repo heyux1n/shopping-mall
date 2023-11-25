@@ -7,7 +7,7 @@
     <sql id="columns">id, name, logo, create_time, update_time, is_deleted</sql>
 
 
-    <select id="findByPage" resultMap="BrandMap">
+    <select id="selectAll" resultMap="BrandMap">
         select
         <include refid="columns"/>
         from brand

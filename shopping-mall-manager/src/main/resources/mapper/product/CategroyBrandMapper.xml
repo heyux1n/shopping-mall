@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heyux1n.shopping.mall.manager.mapper.CategoryBrandMapper">
+
+    <resultMap id="CategoryBrandMap" type="com.heyux1n.shopping.mall.model.entity.product.CategoryBrand"
+               autoMapping="true"/>
+
+
+    <select id="findByPage" resultMap="CategoryBrandMap">
+        SELECT
+        cb.id,
+        cb.brand_id AS brandId,
+        cb.category_id AS categoryId,
+        c.NAME AS categoryName,
+        b.NAME AS brandName,
+        b.logo AS logo
+        FROM
+        category_brand cb
+        LEFT JOIN category c ON cb.category_id = c.id
+        LEFT JOIN brand b ON cb.brand_id = b.id
+        <where>
+            cb.is_deleted = 0
+            <if test="brandId != null and brandId != ''">and cb.brand_id=#{brandId}</if>
+            <if test="categoryId != null and categoryId != ''">and cb.category_id=#{categoryId}</if>
+        </where>
+    </select>
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into category_brand (brand_id, category_id)
+        values (#{brandId}, #{categoryId})
+    </insert>
+
+
+    <update id="updateById">
+        update category_brand
+        <set>
+            <if test="brandId != null and brandId != ''">brand_id=#{brandId},</if>
+            <if test="categoryId != null and categoryId != ''">category_id=#{categoryId}</if>
+        </set>
+        where id=#{id}
+    </update>
+
+
+    <update id="deleteById">
+        update category_brand
+        set is_deleted = 1
+        where id = #{id}
+    </update>
+</mapper>

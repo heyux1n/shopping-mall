@@ -45,4 +45,10 @@ public class CategoryController {
         categoryService.importData(file);
         return Result.build(null , ResultCodeEnum.SUCCESS) ;
     }
+
+
+    @GetMapping("/path/{id}")
+    public Result getPathById(@PathVariable Long id) {
+        return Result.build(categoryService.getPathById(id) , ResultCodeEnum.SUCCESS) ;
+    }
 }
