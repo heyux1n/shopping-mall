@@ -43,4 +43,9 @@ public class ProductSpecServiceImpl implements ProductSpecService {
     public boolean deleteById(Long id) {
         return productSpecMapper.deleteById(id);
     }
+
+    @Override
+    public List<ProductSpec> findAll() {
+        return productSpecMapper.selectAll();
+    }
 }

@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.heyux1n.shopping.mall.manager.mapper.CategoryBrandMapper;
 import com.heyux1n.shopping.mall.manager.service.CategoryBrandService;
 import com.heyux1n.shopping.mall.model.dto.product.CategoryBrandDto;
+import com.heyux1n.shopping.mall.model.entity.product.Brand;
 import com.heyux1n.shopping.mall.model.entity.product.CategoryBrand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +44,10 @@ public class CategoryBrandServiceImpl implements CategoryBrandService {
     @Override
     public boolean deleteById(Long id) {
         return categoryBrandMapper.deleteById(id);
+    }
+
+    @Override
+    public List<Brand> findBrandByCategoryId(Long categoryId) {
+        return categoryBrandMapper.findBrandByCategoryId(categoryId);
     }
 }

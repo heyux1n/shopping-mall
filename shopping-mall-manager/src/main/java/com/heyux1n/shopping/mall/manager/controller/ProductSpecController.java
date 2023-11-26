@@ -8,6 +8,8 @@ import com.heyux1n.shopping.mall.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author: heyux1n
  * @date: 2023/11/26 16:37
@@ -42,5 +44,12 @@ public class ProductSpecController {
     @DeleteMapping("/deleteById/{id}")
     public Result removeById(@PathVariable Long id) {
         return Result.build(productSpecService.deleteById(id) , ResultCodeEnum.SUCCESS) ;
+    }
+
+
+    @GetMapping("findAll")
+    public Result findAll() {
+        List<ProductSpec> list = productSpecService.findAll();
+        return Result.build(list , ResultCodeEnum.SUCCESS) ;
     }
 }

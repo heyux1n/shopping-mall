@@ -2,7 +2,10 @@ package com.heyux1n.shopping.mall.manager.service;
 
 import com.github.pagehelper.PageInfo;
 import com.heyux1n.shopping.mall.model.dto.product.CategoryBrandDto;
+import com.heyux1n.shopping.mall.model.entity.product.Brand;
 import com.heyux1n.shopping.mall.model.entity.product.CategoryBrand;
+
+import java.util.List;
 
 /**
  * @author: heyux1n
@@ -42,4 +45,10 @@ public interface CategoryBrandService {
      */
     boolean deleteById(Long id);
 
+    /**
+     * 根据分类查询品牌列表
+     * @param categoryId
+     * @return
+     */
+    List<Brand> findBrandByCategoryId(Long categoryId);
 }

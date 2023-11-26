@@ -3,6 +3,8 @@ package com.heyux1n.shopping.mall.manager.service;
 import com.github.pagehelper.PageInfo;
 import com.heyux1n.shopping.mall.model.entity.product.ProductSpec;
 
+import java.util.List;
+
 /**
  * @author: heyux1n
  * @date: 2023/11/26 16:40
@@ -38,4 +40,10 @@ public interface ProductSpecService {
      * @return
      */
     boolean deleteById(Long id);
+
+    /**
+     * 查询全部商品规格
+     * @return
+     */
+    List<ProductSpec> findAll();
 }

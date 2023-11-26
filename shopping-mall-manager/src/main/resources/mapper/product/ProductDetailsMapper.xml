@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heyux1n.shopping.mall.manager.mapper.ProductDetailsMapper">
+
+
+    <resultMap id="ProductDetailsMap" type="com.heyux1n.shopping.mall.model.entity.product.ProductDetails"
+               autoMapping="true"/>
+
+
+    <sql id="columns">id, product_id, image_urls, create_time, update_time</sql>
+
+    <select id="selectByProductId" resultMap="ProductDetailsMap">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        product_details
+        where is_deleted=0 and product_id=#{productId}
+    </select>
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into product_details (product_id, image_urls)
+        values (#{productId}, #{imageUrls});
+    </insert>
+
+
+    <update id="updateById">
+        update product_details
+        <set>
+            <if test="productId != null and productId != ''">product_id=#{productId},</if>
+            <if test="imageUrls != null and imageUrls != ''">image_urls=#{imageUrls}</if>
+        </set>
+        where id=#{id}
+    </update>
+
+
+    <update id="deleteByProductId">
+        update product_details
+        set is_deleted = 1
+        where product_id = #{productId}
+    </update>
+</mapper>

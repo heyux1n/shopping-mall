@@ -3,11 +3,14 @@ package com.heyux1n.shopping.mall.manager.controller;
 import com.github.pagehelper.PageInfo;
 import com.heyux1n.shopping.mall.manager.service.CategoryBrandService;
 import com.heyux1n.shopping.mall.model.dto.product.CategoryBrandDto;
+import com.heyux1n.shopping.mall.model.entity.product.Brand;
 import com.heyux1n.shopping.mall.model.entity.product.CategoryBrand;
 import com.heyux1n.shopping.mall.model.vo.common.Result;
 import com.heyux1n.shopping.mall.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author: heyux1n
@@ -41,6 +44,12 @@ public class CategoryBrandController {
     @DeleteMapping("/deleteById/{id}")
     public Result deleteById(@PathVariable Long id) {
         return Result.build(categoryBrandService.deleteById(id) , ResultCodeEnum.SUCCESS) ;
+    }
+
+    @GetMapping("/findBrandByCategoryId/{categoryId}")
+    public Result findBrandByCategoryId(@PathVariable Long categoryId) {
+        List<Brand> brandList =   categoryBrandService.findBrandByCategoryId(categoryId);
+        return Result.build(brandList , ResultCodeEnum.SUCCESS) ;
     }
 
 }
