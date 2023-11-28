@@ -13,6 +13,7 @@
         <module>shopping-mall-model</module>
         <module>shopping-mall-manager</module>
         <module>shopping-mall-common/common-service</module>
+        <module>shopping-mall-common/common-log</module>
     </modules>
 
     <parent>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heyux1n.shopping.mall.manager.mapper.SysOperateLogMapper">
+
+    <insert id="save">
+        insert into sys_operate_log (title, method, request_method, operator_type, operate_name, operate_url,
+                                     operate_ip, operate_param, json_result, status, error_msg)
+        values (#{title},
+                #{method},
+                #{requestMethod},
+                #{operatorType},
+                #{operateName},
+                #{operateUrl},
+                #{operateIp},
+                #{operateParam},
+                #{jsonResult},
+                #{status},
+                #{errorMsg})
+    </insert>
+
+</mapper>
