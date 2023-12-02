@@ -30,7 +30,7 @@ public class LogUtil {
      * @param status
      * @param errorMsg
      */
-    public static void afterHandlLog(Log sysLog, Object proceed,
+    public static void afterHandleLog(Log sysLog, Object proceed,
                                      SysOperateLog sysOperateLog, int status ,
                                      String errorMsg) {
         if(sysLog.isSaveResponseData()) {

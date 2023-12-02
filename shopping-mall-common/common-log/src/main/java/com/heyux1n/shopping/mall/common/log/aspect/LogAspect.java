@@ -30,9 +30,9 @@ public class LogAspect {
         try {
             LogUtil.beforeHandleLog(sysLog, joinPoint, sysOperateLog);
             proceed = joinPoint.proceed();
-            LogUtil.afterHandlLog(sysLog, proceed, sysOperateLog, 0, null);
+            LogUtil.afterHandleLog(sysLog, proceed, sysOperateLog, 0, null);
         } catch (Throwable e) {
-            LogUtil.afterHandlLog(sysLog, proceed, sysOperateLog, 1, e.toString());
+            LogUtil.afterHandleLog(sysLog, proceed, sysOperateLog, 1, e.toString());
             throw new RuntimeException(e);
         }finally {
             asyncOperateLogService.saveSysOperateLog(sysOperateLog);
