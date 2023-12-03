@@ -1,4 +1,4 @@
-package com.heyux1n.shopping.mall.common.log.service;
+package com.heyux1n.shopping.mall.common.service.log.service;
 
 import com.heyux1n.shopping.mall.model.entity.system.SysOperateLog;
 

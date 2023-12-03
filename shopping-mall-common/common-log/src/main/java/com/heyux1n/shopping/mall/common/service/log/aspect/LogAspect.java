@@ -1,8 +1,8 @@
-package com.heyux1n.shopping.mall.common.log.aspect;
+package com.heyux1n.shopping.mall.common.service.log.aspect;
 
-import com.heyux1n.shopping.mall.common.log.annotation.Log;
-import com.heyux1n.shopping.mall.common.log.service.AsyncOperateLogService;
-import com.heyux1n.shopping.mall.common.log.util.LogUtil;
+import com.heyux1n.shopping.mall.common.service.log.annotation.Log;
+import com.heyux1n.shopping.mall.common.service.log.service.AsyncOperateLogService;
+import com.heyux1n.shopping.mall.common.service.log.util.LogUtil;
 import com.heyux1n.shopping.mall.model.entity.system.SysOperateLog;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

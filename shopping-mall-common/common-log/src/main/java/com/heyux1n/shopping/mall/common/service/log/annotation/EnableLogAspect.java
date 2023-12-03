@@ -1,6 +1,6 @@
-package com.heyux1n.shopping.mall.common.log.annotation;
+package com.heyux1n.shopping.mall.common.service.log.annotation;
 
-import com.heyux1n.shopping.mall.common.log.aspect.LogAspect;
+import com.heyux1n.shopping.mall.common.service.log.aspect.LogAspect;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;

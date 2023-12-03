@@ -1,4 +1,4 @@
-package com.heyux1n.shopping.mall.common.log.enums;
+package com.heyux1n.shopping.mall.common.service.log.enums;
 
 /**
  * @author: heyux1n

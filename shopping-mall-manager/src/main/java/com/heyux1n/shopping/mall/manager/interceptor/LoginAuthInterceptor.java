@@ -2,9 +2,7 @@ package com.heyux1n.shopping.mall.manager.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.util.StringUtil;
-import com.heyux1n.shopping.mall.common.exception.ServiceResException;
 import com.heyux1n.shopping.mall.common.util.AuthContextUtil;
-import com.heyux1n.shopping.mall.manager.properties.UserAuthProperties;
 import com.heyux1n.shopping.mall.model.entity.system.SysUser;
 import com.heyux1n.shopping.mall.model.vo.common.Result;
 import com.heyux1n.shopping.mall.model.vo.common.ResultCodeEnum;

@@ -1,16 +1,16 @@
 package com.heyux1n.shopping.mall.service.user.controller;
 
+import com.heyux1n.shopping.mall.model.dto.h5.UserLoginDto;
 import com.heyux1n.shopping.mall.model.dto.h5.UserRegisterDto;
 import com.heyux1n.shopping.mall.model.vo.common.Result;
 import com.heyux1n.shopping.mall.model.vo.common.ResultCodeEnum;
+import com.heyux1n.shopping.mall.model.vo.h5.UserInfoVo;
 import com.heyux1n.shopping.mall.service.user.service.UserInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: heyux1n
@@ -33,4 +33,18 @@ public class UserInfoController {
         return Result.build(null , ResultCodeEnum.SUCCESS) ;
     }
 
+
+    @Operation(summary = "会员登录")
+    @PostMapping("login")
+    public Result login(@RequestBody UserLoginDto userLoginDto) {
+        return Result.build(userInfoService.login(userLoginDto), ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "获取当前登录用户信息")
+    @GetMapping("auth/getCurrentUserInfo")
+    public Result<UserInfoVo> getCurrentUserInfo(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        UserInfoVo userInfoVo = userInfoService.getCurrentUserInfo(token) ;
+        return Result.build(userInfoVo , ResultCodeEnum.SUCCESS) ;
+    }
 }

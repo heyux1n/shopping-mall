@@ -1,6 +1,6 @@
 package com.heyux1n.shopping.mall.manager;
 
-import com.heyux1n.shopping.mall.common.log.annotation.EnableLogAspect;
+import com.heyux1n.shopping.mall.common.service.log.annotation.EnableLogAspect;
 import com.heyux1n.shopping.mall.manager.properties.MinioProperties;
 import com.heyux1n.shopping.mall.manager.properties.UserAuthProperties;
 import org.springframework.boot.SpringApplication;

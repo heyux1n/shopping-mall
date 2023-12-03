@@ -1,4 +1,4 @@
-package com.heyux1n.shopping.mall.common.exception;
+package com.heyux1n.shopping.mall.common.service.exception;
 
 import com.heyux1n.shopping.mall.model.vo.common.ResultCodeEnum;
 import lombok.Getter;

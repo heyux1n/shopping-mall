@@ -1,6 +1,6 @@
 package com.heyux1n.shopping.mall.service.user.service.impl;
 
-import com.heyux1n.shopping.mall.common.exception.ServiceResException;
+import com.heyux1n.shopping.mall.common.service.exception.ServiceResException;
 import com.heyux1n.shopping.mall.common.util.HttpUtils;
 import com.heyux1n.shopping.mall.model.vo.common.ResultCodeEnum;
 import com.heyux1n.shopping.mall.service.user.properties.SmsProperties;

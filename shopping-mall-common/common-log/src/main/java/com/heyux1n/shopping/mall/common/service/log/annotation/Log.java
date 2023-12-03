@@ -1,6 +1,6 @@
-package com.heyux1n.shopping.mall.common.log.annotation;
+package com.heyux1n.shopping.mall.common.service.log.annotation;
 
-import com.heyux1n.shopping.mall.common.log.enums.OperatorType;
+import com.heyux1n.shopping.mall.common.service.log.enums.OperatorType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

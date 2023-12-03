@@ -1,6 +1,5 @@
-package com.heyux1n.shopping.mall.common.exception;
+package com.heyux1n.shopping.mall.common.service.exception;
 
-import com.heyux1n.shopping.mall.common.exception.ServiceResException;
 import com.heyux1n.shopping.mall.model.vo.common.Result;
 import com.heyux1n.shopping.mall.model.vo.common.ResultCodeEnum;
 import org.springframework.web.bind.annotation.ControllerAdvice;

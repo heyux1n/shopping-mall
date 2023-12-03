@@ -1,7 +1,7 @@
-package com.heyux1n.shopping.mall.common.log.util;
+package com.heyux1n.shopping.mall.common.service.log.util;
 
 import com.alibaba.fastjson.JSON;
-import com.heyux1n.shopping.mall.common.log.annotation.Log;
+import com.heyux1n.shopping.mall.common.service.log.annotation.Log;
 import com.heyux1n.shopping.mall.common.util.AuthContextUtil;
 import com.heyux1n.shopping.mall.model.entity.system.SysOperateLog;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,8 +31,8 @@ public class LogUtil {
      * @param errorMsg
      */
     public static void afterHandleLog(Log sysLog, Object proceed,
-                                     SysOperateLog sysOperateLog, int status ,
-                                     String errorMsg) {
+                                      SysOperateLog sysOperateLog, int status ,
+                                      String errorMsg) {
         if(sysLog.isSaveResponseData()) {
             sysOperateLog.setJsonResult(JSON.toJSONString(proceed));
         }

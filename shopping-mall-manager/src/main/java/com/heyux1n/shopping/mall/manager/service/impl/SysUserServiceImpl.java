@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.util.StringUtil;
-import com.heyux1n.shopping.mall.common.exception.ServiceResException;
+import com.heyux1n.shopping.mall.common.service.exception.ServiceResException;
 import com.heyux1n.shopping.mall.common.util.AuthContextUtil;
 import com.heyux1n.shopping.mall.manager.mapper.SysUserMapper;
 import com.heyux1n.shopping.mall.manager.mapper.SysUserRoleMapper;

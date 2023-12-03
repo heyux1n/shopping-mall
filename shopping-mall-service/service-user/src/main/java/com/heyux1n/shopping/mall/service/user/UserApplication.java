@@ -1,5 +1,6 @@
 package com.heyux1n.shopping.mall.service.user;
 
+import com.heyux1n.shopping.mall.common.service.annotation.EnableUserWebMvcConfiguration;
 import com.heyux1n.shopping.mall.service.user.properties.SmsProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.heyux1n.shopping"})
 @EnableConfigurationProperties(value = {SmsProperties.class})
+@EnableUserWebMvcConfiguration
 public class UserApplication {
 
     public static void main(String[] args) {

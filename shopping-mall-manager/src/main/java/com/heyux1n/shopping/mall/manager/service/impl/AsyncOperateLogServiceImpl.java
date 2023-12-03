@@ -1,6 +1,6 @@
 package com.heyux1n.shopping.mall.manager.service.impl;
 
-import com.heyux1n.shopping.mall.common.log.service.AsyncOperateLogService;
+import com.heyux1n.shopping.mall.common.service.log.service.AsyncOperateLogService;
 import com.heyux1n.shopping.mall.manager.mapper.SysOperateLogMapper;
 import com.heyux1n.shopping.mall.model.entity.system.SysOperateLog;
 import org.springframework.beans.factory.annotation.Autowired;

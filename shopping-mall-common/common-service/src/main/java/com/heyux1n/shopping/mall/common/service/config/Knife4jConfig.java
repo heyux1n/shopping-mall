@@ -1,4 +1,4 @@
-package com.heyux1n.shopping.mall.common.config;
+package com.heyux1n.shopping.mall.common.service.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;

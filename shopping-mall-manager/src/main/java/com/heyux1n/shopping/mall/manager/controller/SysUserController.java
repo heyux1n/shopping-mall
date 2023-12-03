@@ -1,8 +1,8 @@
 package com.heyux1n.shopping.mall.manager.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.heyux1n.shopping.mall.common.log.annotation.Log;
-import com.heyux1n.shopping.mall.common.log.enums.OperatorType;
+import com.heyux1n.shopping.mall.common.service.log.annotation.Log;
+import com.heyux1n.shopping.mall.common.service.log.enums.OperatorType;
 import com.heyux1n.shopping.mall.manager.service.SysUserService;
 import com.heyux1n.shopping.mall.model.dto.system.AssignRoleDto;
 import com.heyux1n.shopping.mall.model.dto.system.SysUserDto;
