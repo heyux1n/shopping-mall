@@ -6,11 +6,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * @author: heyux1n
  * @date: 2023/11/5 14:47
- * @description:
+ * @description:读取节点
  * @version: 1.0.0
  */
 @Data
-@ConfigurationProperties(prefix="shopping-mall.minio") //读取节点
+@ConfigurationProperties(prefix="shopping-mall.minio")
 public class MinioProperties {
 
     private String endpointUrl;
