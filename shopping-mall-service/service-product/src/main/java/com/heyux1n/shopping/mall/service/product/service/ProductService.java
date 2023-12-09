@@ -35,4 +35,11 @@ public interface ProductService {
      * @return
      */
     ProductItemVo item(Long skuId);
+
+    /**
+     * 根据skuId查询sku信息
+     * @param skuId
+     * @return
+     */
+    ProductSku getBySkuId(Long skuId);
 }
