@@ -16,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author: heyux1n
@@ -103,7 +104,7 @@ public class CartServiceImpl implements CartService {
         Long userId = AuthContextUtil.getUserInfo().getId();
         String cartKey = getCartKey(userId);
         Object cartInfoObj = redisTemplate.opsForHash().get(cartKey, skuId.toString());
-        if(cartInfoObj == null) {
+        if (cartInfoObj == null) {
             throw new ServiceResException(ResultCodeEnum.DATA_ERROR);
         }
         CartInfo cartInfo = JSON.parseObject(cartInfoObj.toString(), CartInfo.class);
@@ -131,5 +132,20 @@ public class CartServiceImpl implements CartService {
         Long userId = AuthContextUtil.getUserInfo().getId();
         String cartKey = getCartKey(userId);
         redisTemplate.delete(cartKey);
+    }
+
+    @Override
+    public List<CartInfo> getAllChecked() {
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        String cartKey = getCartKey(userId);
+        // 获取所有的购物项数据
+        List<Object> objectList = redisTemplate.opsForHash().values(cartKey);
+        if (CollectionUtils.isEmpty(objectList)) {
+            return new ArrayList<>();
+        }
+        List<CartInfo> cartInfoList = objectList.stream().map(cartInfoJSON -> JSON.parseObject(cartInfoJSON.toString(), CartInfo.class))
+                .filter(cartInfo -> cartInfo.getIsChecked() == 1)
+                .collect(Collectors.toList());
+        return cartInfoList;
     }
 }

@@ -1,4 +1,4 @@
-package com.heyux1n.shopping.mall.service.cart;
+package com.heyux1n.shopping.mall.service.order;
 
 import com.heyux1n.shopping.mall.common.service.annotation.EnableUserTokenFeignInterceptor;
 import com.heyux1n.shopping.mall.common.service.annotation.EnableUserWebMvcConfiguration;
@@ -9,18 +9,17 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author: heyux1n
- * @date: 2023/12/9 17:53
+ * @date: 2023/12/9 19:19
  * @description:
  * @version: 1.0.0
  */
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.heyux1n.shopping.mall"})
-@EnableFeignClients(basePackages = {"com.heyux1n.shopping.mall.client.product.feign"})
+@EnableFeignClients(basePackages = {"com.heyux1n.shopping.mall.client.cart.feign"})
 @EnableUserWebMvcConfiguration
 @EnableUserTokenFeignInterceptor
-public class CartApplication {
-
+public class OrderApplication {
     public static void main(String[] args) {
-        SpringApplication.run(CartApplication.class, args);
+        SpringApplication.run(OrderApplication.class, args);
     }
 }

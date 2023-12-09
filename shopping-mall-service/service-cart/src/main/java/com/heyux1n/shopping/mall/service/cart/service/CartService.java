@@ -48,4 +48,10 @@ public interface CartService {
      * 清空购物车
      */
     void clearCart();
+
+    /**
+     * 查询选中
+     * @return
+     */
+    List<CartInfo> getAllChecked();
 }
