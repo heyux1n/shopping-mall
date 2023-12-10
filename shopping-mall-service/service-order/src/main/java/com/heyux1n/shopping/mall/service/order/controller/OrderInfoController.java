@@ -69,4 +69,20 @@ public class OrderInfoController {
         PageInfo<OrderInfo> pageInfo = orderInfoService.findUserPage(page, limit, orderStatus);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
+
+
+    @Operation(summary = "获取订单信息")
+    @GetMapping("auth/getOrderInfoByOrderNo/{orderNo}")
+    public Result<OrderInfo> getOrderInfoByOrderNo(@Parameter(name = "orderId", description = "订单id", required = true) @PathVariable String orderNo) {
+        OrderInfo orderInfo = orderInfoService.getByOrderNo(orderNo);
+        return Result.build(orderInfo, ResultCodeEnum.SUCCESS);
+    }
+
+
+    @Operation(summary = "更新订单状态")
+    @GetMapping("auth/updateOrderStatusPayed/{orderNo}/{payType}")
+    public Result updateOrderStatus(@PathVariable(value = "orderNo") String orderNo, @PathVariable(value = "payType") Integer payType) {
+        orderInfoService.updateOrderStatus(orderNo, payType);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
 }

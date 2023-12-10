@@ -29,6 +29,7 @@ import org.springframework.util.CollectionUtils;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -178,5 +179,31 @@ public class OrderInfoServiceImpl implements OrderInfoService {
             orderInfo.setOrderItemList(orderItemList);
         });
         return new PageInfo<>(orderInfoList);
+    }
+
+    @Override
+    public OrderInfo getByOrderNo(String orderNo) {
+        OrderInfo orderInfo = orderInfoMapper.getByOrderNo(orderNo);
+        List<OrderItem> orderItem = orderItemMapper.findByOrderId(orderInfo.getId());
+        orderInfo.setOrderItemList(orderItem);
+        return orderInfo;
+    }
+
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateOrderStatus(String orderNo, Integer payType) {
+        OrderInfo orderInfo = orderInfoMapper.getByOrderNo(orderNo);
+        orderInfo.setOrderStatus(1);
+        orderInfo.setPayType(payType);
+        orderInfo.setPaymentTime(new Date());
+        orderInfoMapper.updateById(orderInfo);
+
+        // 记录日志
+        OrderLog orderLog = new OrderLog();
+        orderLog.setOrderId(orderInfo.getId());
+        orderLog.setProcessStatus(1);
+        orderLog.setNote("支付宝支付成功");
+        orderLogMapper.save(orderLog);
     }
 }

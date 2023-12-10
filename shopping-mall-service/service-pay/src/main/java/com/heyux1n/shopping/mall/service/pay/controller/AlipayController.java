@@ -1,0 +1,75 @@
+package com.heyux1n.shopping.mall.service.pay.controller;
+
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.internal.util.AlipaySignature;
+import com.heyux1n.shopping.mall.model.vo.common.Result;
+import com.heyux1n.shopping.mall.model.vo.common.ResultCodeEnum;
+import com.heyux1n.shopping.mall.service.pay.properties.AlipayProperties;
+import com.heyux1n.shopping.mall.service.pay.service.AlipayService;
+import com.heyux1n.shopping.mall.service.pay.service.PaymentInfoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+/**
+ * @author: heyux1n
+ * @date: 2023/12/10 20:27
+ * @description:
+ * @version: 1.0.0
+ */
+@Controller
+@RequestMapping("/api/order/alipay")
+public class AlipayController {
+
+    @Autowired
+    private AlipayProperties alipayProperties;
+    @Autowired
+    private AlipayService alipayService;
+    @Autowired
+    private PaymentInfoService paymentInfoService;
+
+    @Operation(summary = "支付宝下单")
+    @GetMapping("submitAlipay/{orderNo}")
+    @ResponseBody
+    public Result<String> submitAlipay(@Parameter(name = "orderNo", description = "订单号", required = true) @PathVariable(value = "orderNo") String orderNo) {
+        String form = alipayService.submitAlipay(orderNo);
+        return Result.build(form, ResultCodeEnum.SUCCESS);
+    }
+
+
+    @Operation(summary = "支付宝异步回调")
+    @RequestMapping("callback/notify")
+    @ResponseBody
+    public String alipayNotify(@RequestParam Map<String, String> paramMap, HttpServletRequest request) {
+        //调用SDK验证签名
+        boolean signVerified = false;
+        try {
+            signVerified = AlipaySignature.rsaCheckV1(paramMap, alipayProperties.getAlipayPublicKey(), AlipayProperties.charset, AlipayProperties.sign_type);
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+
+        // 交易状态
+        String trade_status = paramMap.get("trade_status");
+
+        // true
+        if (signVerified) {
+
+            if ("TRADE_SUCCESS".equals(trade_status) || "TRADE_FINISHED".equals(trade_status)) {
+                // 正常的支付成功，我们应该更新交易记录状态
+                paymentInfoService.updatePaymentStatus(paramMap, 2);
+                return "success";
+            }
+
+        } else {
+            return "failure";
+        }
+
+        return "failure";
+    }
+}

@@ -47,4 +47,18 @@ public interface OrderInfoService {
      * @return
      */
     PageInfo<OrderInfo> findUserPage(Integer page, Integer limit, Integer orderStatus);
+
+    /**
+     * 根据订单编号获取订单编号
+     * @param orderNo
+     * @return
+     */
+    OrderInfo getByOrderNo(String orderNo);
+
+    /**
+     * 更新订单状态
+     * @param orderNo
+     * @param payType
+     */
+    void updateOrderStatus(String orderNo, Integer payType);
 }

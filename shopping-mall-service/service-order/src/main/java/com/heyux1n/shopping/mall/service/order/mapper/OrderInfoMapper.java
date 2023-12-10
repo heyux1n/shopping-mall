@@ -34,4 +34,17 @@ public interface OrderInfoMapper {
      * @return
      */
     List<OrderInfo> findUserPage(Long userId, Integer orderStatus);
+
+    /**
+     * 根据订单编号查询
+     * @param orderNo
+     * @return
+     */
+    OrderInfo getByOrderNo(String orderNo);
+
+    /**
+     * 更新订单信息
+     * @param orderInfo
+     */
+    void updateById(OrderInfo orderInfo);
 }

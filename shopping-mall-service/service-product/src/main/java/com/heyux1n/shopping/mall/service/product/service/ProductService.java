@@ -2,6 +2,7 @@ package com.heyux1n.shopping.mall.service.product.service;
 
 import com.github.pagehelper.PageInfo;
 import com.heyux1n.shopping.mall.model.dto.h5.ProductSkuDto;
+import com.heyux1n.shopping.mall.model.dto.h5.SkuSaleDto;
 import com.heyux1n.shopping.mall.model.entity.product.ProductSku;
 import com.heyux1n.shopping.mall.model.vo.h5.ProductItemVo;
 
@@ -42,4 +43,11 @@ public interface ProductService {
      * @return
      */
     ProductSku getBySkuId(Long skuId);
+
+    /**
+     * 更新销量
+     * @param skuSaleDtoList
+     * @return
+     */
+    Boolean updateSkuSaleNum(List<SkuSaleDto> skuSaleDtoList);
 }

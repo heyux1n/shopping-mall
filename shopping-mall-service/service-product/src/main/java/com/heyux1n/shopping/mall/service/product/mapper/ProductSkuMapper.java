@@ -40,4 +40,11 @@ public interface ProductSkuMapper {
      * @return
      */
     List<ProductSku> findByProductId(Long productId);
+
+    /**
+     * 更新销量
+     * @param skuId
+     * @param num
+     */
+    void updateSale(Long skuId, Integer num);
 }
