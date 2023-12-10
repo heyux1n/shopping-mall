@@ -1,5 +1,7 @@
 package com.heyux1n.shopping.mall.service.order.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.heyux1n.shopping.mall.client.cart.feign.CartFeignClient;
 import com.heyux1n.shopping.mall.client.product.feign.ProductFeignClient;
 import com.heyux1n.shopping.mall.client.user.feign.UserFeignClient;
@@ -26,6 +28,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -146,6 +149,34 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
     @Override
     public OrderInfo getOrderInfo(Long orderId) {
-        return null;
+        return orderInfoMapper.getById(orderId);
+    }
+
+    @Override
+    public TradeVo buy(Long skuId) {
+        ProductSku productSku = productFeignClient.getBySkuId(skuId);
+        OrderItem orderItem = new OrderItem();
+        orderItem.setSkuId(productSku.getId());
+        orderItem.setSkuName(productSku.getSkuName());
+        orderItem.setSkuNum(1);
+        orderItem.setSkuPrice(productSku.getSalePrice());
+        orderItem.setThumbImg(productSku.getThumbImg());
+
+        TradeVo tradeVo = new TradeVo();
+        tradeVo.setTotalAmount(orderItem.getSkuPrice());
+        tradeVo.setOrderItemList(Collections.singletonList(orderItem));
+        return tradeVo;
+    }
+
+    @Override
+    public PageInfo<OrderInfo> findUserPage(Integer page, Integer limit, Integer orderStatus) {
+        PageHelper.startPage(page, limit);
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        List<OrderInfo> orderInfoList = orderInfoMapper.findUserPage(userId, orderStatus);
+        orderInfoList.forEach(orderInfo -> {
+            List<OrderItem> orderItemList = orderItemMapper.findByOrderId(orderInfo.getId());
+            orderInfo.setOrderItemList(orderItemList);
+        });
+        return new PageInfo<>(orderInfoList);
     }
 }

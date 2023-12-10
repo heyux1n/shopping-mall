@@ -1,5 +1,6 @@
 package com.heyux1n.shopping.mall.service.order.service;
 
+import com.github.pagehelper.PageInfo;
 import com.heyux1n.shopping.mall.model.dto.h5.order.OrderInfoDto;
 import com.heyux1n.shopping.mall.model.entity.product.OrderInfo;
 import com.heyux1n.shopping.mall.model.vo.h5.order.TradeVo;
@@ -30,4 +31,20 @@ public interface OrderInfoService {
      * @return
      */
     OrderInfo getOrderInfo(Long orderId);
+
+    /**
+     * 立即购买获取结算数据
+     * @param skuId
+     * @return
+     */
+    TradeVo buy(Long skuId);
+
+    /**
+     * 分页获取用户订单信息
+     * @param page
+     * @param limit
+     * @param orderStatus
+     * @return
+     */
+    PageInfo<OrderInfo> findUserPage(Integer page, Integer limit, Integer orderStatus);
 }

@@ -1,11 +1,13 @@
 package com.heyux1n.shopping.mall.model.entity.product;
 
 import com.heyux1n.shopping.mall.model.entity.base.BaseEntity;
+import com.heyux1n.shopping.mall.model.entity.h5.order.OrderItem;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: heyux1n
@@ -41,4 +43,6 @@ public class OrderInfo extends BaseEntity {
     private Date cancelTime;
     private String cancelReason;
 
+    @Schema(description = "订单项列表")
+    private List<OrderItem> orderItemList;
 }

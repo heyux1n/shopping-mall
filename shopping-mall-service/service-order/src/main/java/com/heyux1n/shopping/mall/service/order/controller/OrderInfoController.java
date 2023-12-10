@@ -1,5 +1,6 @@
 package com.heyux1n.shopping.mall.service.order.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.heyux1n.shopping.mall.model.dto.h5.order.OrderInfoDto;
 import com.heyux1n.shopping.mall.model.entity.product.OrderInfo;
 import com.heyux1n.shopping.mall.model.vo.common.Result;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Tag(name = "订单管理")
 @RestController
-@RequestMapping(value="/api/order/orderInfo")
+@RequestMapping(value = "/api/order/orderInfo")
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class OrderInfoController {
 
@@ -47,5 +48,25 @@ public class OrderInfoController {
     public Result<OrderInfo> getOrderInfo(@Parameter(name = "orderId", description = "订单id", required = true) @PathVariable Long orderId) {
         OrderInfo orderInfo = orderInfoService.getOrderInfo(orderId);
         return Result.build(orderInfo, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "立即购买")
+    @GetMapping("auth/buy/{skuId}")
+    public Result<TradeVo> buy(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable Long skuId) {
+        TradeVo tradeVo = orderInfoService.buy(skuId);
+        return Result.build(tradeVo, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "获取订单分页列表")
+    @GetMapping("auth/{page}/{limit}")
+    public Result<PageInfo<OrderInfo>> list(
+            @Parameter(name = "page", description = "当前页码", required = true)
+            @PathVariable Integer page,
+            @Parameter(name = "limit", description = "每页记录数", required = true)
+            @PathVariable Integer limit,
+            @Parameter(name = "orderStatus", description = "订单状态")
+            @RequestParam(required = false, defaultValue = "") Integer orderStatus) {
+        PageInfo<OrderInfo> pageInfo = orderInfoService.findUserPage(page, limit, orderStatus);
+        return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
 }
