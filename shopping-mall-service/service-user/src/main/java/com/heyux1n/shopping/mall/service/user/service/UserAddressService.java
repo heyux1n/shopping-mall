@@ -16,4 +16,11 @@ public interface UserAddressService {
      * @return
      */
     List<UserAddress> findUserAddressList();
+
+    /**
+     * 根据地址id查询地址
+     * @param id
+     * @return
+     */
+    UserAddress getById(Long id);
 }

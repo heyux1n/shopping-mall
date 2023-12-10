@@ -1,5 +1,7 @@
 package com.heyux1n.shopping.mall.service.order.service;
 
+import com.heyux1n.shopping.mall.model.dto.h5.order.OrderInfoDto;
+import com.heyux1n.shopping.mall.model.entity.product.OrderInfo;
 import com.heyux1n.shopping.mall.model.vo.h5.order.TradeVo;
 
 /**
@@ -14,4 +16,18 @@ public interface OrderInfoService {
      * @return
      */
     TradeVo getTrade();
+
+    /**
+     * 提交订单
+     * @param orderInfoDto
+     * @return
+     */
+    Long submitOrder(OrderInfoDto orderInfoDto);
+
+    /**
+     * 查询订单信息
+     * @param orderId
+     * @return
+     */
+    OrderInfo getOrderInfo(Long orderId);
 }

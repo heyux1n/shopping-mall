@@ -54,4 +54,9 @@ public interface CartService {
      * @return
      */
     List<CartInfo> getAllChecked();
+
+    /**
+     * 删除选中
+     */
+    void deleteChecked();
 }

@@ -19,4 +19,11 @@ public interface UserAddressMapper {
      * @return
      */
     List<UserAddress> findAllByUserId(Long id);
+
+    /**
+     * 根据地址id查询地址
+     * @param id
+     * @return
+     */
+    UserAddress getById(Long id);
 }

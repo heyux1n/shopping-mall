@@ -15,7 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.heyux1n.shopping.mall"})
-@EnableFeignClients(basePackages = {"com.heyux1n.shopping.mall.client.cart.feign"})
+@EnableFeignClients(basePackages = {"com.heyux1n.shopping.mall.client"})
 @EnableUserWebMvcConfiguration
 @EnableUserTokenFeignInterceptor
 public class OrderApplication {

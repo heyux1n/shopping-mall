@@ -1,6 +1,7 @@
 package com.heyux1n.shopping.mall.client.cart.feign;
 
 import com.heyux1n.shopping.mall.model.entity.h5.CartInfo;
+import com.heyux1n.shopping.mall.model.vo.common.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -22,4 +23,11 @@ public interface CartFeignClient {
     @GetMapping(value = "/api/order/cart/auth/getAllChecked")
     public abstract List<CartInfo> getAllChecked() ;
 
+
+    /**
+     * 删除已选中
+     * @return
+     */
+    @GetMapping(value = "/api/order/cart/auth/deleteChecked")
+    public abstract Result deleteChecked();
 }
